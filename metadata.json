@@ -1,0 +1,15 @@
+{
+  "name": "bitswarmlabs/bsl_infrastructure",
+  "version": "0.1.0",
+  "author": "bitswarmlabs",
+  "summary": "Infrastructure provisioning for Bitswarm.io",
+  "license": "MIT",
+  "source": "https://github.com/bitswarmlabs/puppet-bsl_infrastructure",
+  "project_page": "http://bitswarm.io",
+  "issues_url": "http://bitswarm.io/issues",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ],
+  "data_provider": null
+}
+
