@@ -11,7 +11,7 @@ class bsl_infrastructure::aws::sdk {
   } else {
     include '::ruby'
 
-    package { 'aws-sdk-core':
+    package { ['aws-sdk', 'aws-sdk-core']:
       ensure   => '2.3.9',
       provider => 'gem',
       notify   => Service['puppetserver'],
