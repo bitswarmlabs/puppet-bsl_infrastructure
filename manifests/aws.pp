@@ -1,11 +1,12 @@
-class bsl_infrastructure::aws {
-  include '::python'
-  include 'bsl_infrastructure::aws::sdk'
+class bsl_infrastructure::aws(
+  $manage_cli = 'true',
+  $manage_sdk = 'true',
+) {
+  if str2bool($manage_cli) {
+    include 'bsl_infrastructure::aws::cli'
+  }
 
-  class { '::awscli': }
-
-  # awscli::profile { 'default':
-  #   aws_access_key_id     => 'MYAWSACCESSKEYID',
-  #   aws_secret_access_key => 'MYAWSSECRETACESSKEY'
-  # }
+  if str2bool($manage_sdk) {
+    include 'bsl_infrastructure::aws::sdk'
+  }
 }
