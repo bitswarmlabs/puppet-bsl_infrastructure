@@ -1,4 +1,6 @@
 class bsl_infrastructure::aws::sdk {
+  notify { '#### here we are in bsl_infrastructure::aws::sdk': }
+  
   # If we're on Amazon we've got the ruby sdk in an rpm. Otherwise we'll get
   # it via gems.
   if $::operatingsystem == 'Amazon' {
@@ -8,7 +10,8 @@ class bsl_infrastructure::aws::sdk {
       # ensure => '1.26.0-1.0.amzn1',
     }
 
-  } else {
+  }
+  else {
     include '::ruby'
 
     package { ['aws-sdk', 'aws-sdk-core']:
