@@ -1,6 +1,6 @@
 class bsl_infrastructure::aws::sdk {
   notify { '#### here we are in bsl_infrastructure::aws::sdk': }
-  
+
   # If we're on Amazon we've got the ruby sdk in an rpm. Otherwise we'll get
   # it via gems.
   if $::operatingsystem == 'Amazon' {
@@ -14,7 +14,7 @@ class bsl_infrastructure::aws::sdk {
   else {
     include '::ruby'
 
-    package { ['aws-sdk', 'aws-sdk-core']:
+    package { 'aws-sdk-core':
       ensure   => '2.3.9',
       provider => 'gem',
       notify   => Service['puppetserver'],
