@@ -1,11 +1,11 @@
 class bsl_infrastructure::aws::cli {
   notify { '#### here we are in bsl_infrastructure::aws::cli': }
 
-  contain '::python'
+  # contain '::python'
   include '::awscli'
 
   anchor { 'bsl_infrastructure::aws::cli::begin': }
-  ->Class['::python::install']
+  # ->Class['::python::install']
   ->Class['::awscli']
   ->anchor { 'bsl_infrastructure::aws::cli::end': }
 
