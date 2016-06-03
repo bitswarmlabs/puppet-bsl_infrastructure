@@ -1,6 +1,5 @@
 define bsl_infrastructure::provider(
   $purge = 'false',
-  $provider = $name,
   $default = 'false',
   $account_id = hiera('bsl_account_id', $::bsl_account_id),
   $tenant_id = hiera('bsl_tenant_id', $::bsl_tenant_id),
@@ -8,7 +7,7 @@ define bsl_infrastructure::provider(
   $puppetmaster = hiera('puppetmaster', 'puppet'),
   $config = [],
 ) {
-  notify { "## hello from bsl_infrastructure::provider for account=$account_id tenant=$tenant_id": }
+  notify { "## hello from bsl_infrastructure::provider for account=$account_id tenant=$tenant_id provider=${name}": }
 
   if str2bool($purge) {
     $_ensure = 'absent'
@@ -18,7 +17,6 @@ define bsl_infrastructure::provider(
   }
 
   validate_string($account_id)
-  validate_string($provider)
   validate_hash($config)
 
   if empty($tenant_id) {
@@ -44,10 +42,10 @@ define bsl_infrastructure::provider(
     'require'         => Bsl_account::Verify[$account_id],
   }
 
-  if defined("bsl_infrastructure::provider::$provider") {
-    create_resources("bsl_infrastructure::provider::$provider", $config, $defaults)
+  if defined("bsl_infrastructure::provider::$name") {
+    create_resources("bsl_infrastructure::provider::$name", $config, $defaults)
   }
   else {
-    fail("unknown provider: $provider")
+    fail("unknown provider: $name")
   }
 }
