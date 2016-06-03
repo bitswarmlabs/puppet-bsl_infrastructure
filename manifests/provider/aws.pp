@@ -8,7 +8,6 @@ define bsl_infrastructure::provider::aws(
   $regions = [],
   $vpcs = [],
   $default = 'false',
-  $internal_domain = $::domain,
 ) {
   notify { '#### hello from bsl_infrastructure::provider::aws': }
 
