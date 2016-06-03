@@ -18,6 +18,8 @@ define bsl_infrastructure::provider(
   }
 
   validate_string($account_id)
+  validate_string($provider)
+  validate_hash($config)
 
   if empty($tenant_id) {
     $_tenant_id = $account_id
