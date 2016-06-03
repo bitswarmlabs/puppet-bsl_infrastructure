@@ -1,22 +1,21 @@
 define bsl_infrastructure::aws::resource::vpc(
   $ensure = 'present',
-  $account_id = $::bsl_account_id,
+  $account_id = hiera('bsl_account_id', $::bsl_account_id),
+  $tenant_id = hiera('bsl_tenant_id', $::bsl_tenant_id),
   $region = 'us-east-1',
   $cidr_block = '10.0.0.0/16',
   $instance_tenancy = undef,
   $tags = undef,
 
-  $internal_domain = 'bitswarm.internal',
+  $manage_dhcp_options = 'true',
+  $dhcp_options_name = $name,
+  $internal_domain = hiera('domain', $::domain),
   $domain_name_servers = ['AmazonProvidedDNS'],
   $ntp_servers = ['ntp.bitswarm.internal'],
 
-  $primary_subnet_name = 'us-east-1b.bitswarm.internal',
-  $primary_subnet_cidr_block = '10.108.0.0/24',
-
-  $manage_dhcp_options = 'true',
-  $dhcp_options_name = $name,
   $manage_subnets = 'true',
   $subnets = [],
+
   $manage_gateway = 'true',
   $gateway_name = $name,
 ) {

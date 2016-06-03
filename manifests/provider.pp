@@ -19,8 +19,15 @@ define bsl_infrastructure::provider(
 
   validate_string($account_id)
 
+  if empty($tenant_id) {
+    $_tenant_id = $account_id
+  }
+  else {
+    $_tenant_id = $tenant_id
+  }
+
   if ! defined(Bsl_account::Verify[$account_id]) {
-    bsl_account::verify { $tenant_id:
+    bsl_account::verify { $_tenant_id:
       account_id => $account_id,
     }
   }
@@ -28,7 +35,9 @@ define bsl_infrastructure::provider(
   $defaults = {
     'default'         => 'false',
     'account_id'      => $account_id,
+    'tenant_id'       => $tenant_id,
     'internal_domain' => $internal_domain,
+    'puppetmaster'    => $puppetmaster,
     'ensure'          => $_ensure,
     'require'         => Bsl_account::Verify[$account_id],
   }
