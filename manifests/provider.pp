@@ -8,6 +8,8 @@ define bsl_infrastructure::provider(
   $puppetmaster = hiera('puppetmaster', 'puppet'),
   $config = [],
 ) {
+  notify { "## hello from bsl_infrastructure::provider for account=$account_id tenant=$tenant_id": }
+  
   if str2bool($purge) {
     $_ensure = 'absent'
   }
