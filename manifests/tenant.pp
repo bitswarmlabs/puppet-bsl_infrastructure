@@ -1,6 +1,7 @@
 define bsl_infrastructure::tenant(
-  $account_id = $::bsl_account_id,
-  $internal_domain = $::domain,
+  $account_id = hiera('bsl_account_id', $::bsl_account_id),
+  $tenant_id = hiera('bsl_tenant_id', $::bsl_tenant_id),
+  $internal_domain = hiera('domain', $::domain),
   $puppetmaster = hiera('puppetmaster', 'puppet'),
   $providers = [],
 ) {
