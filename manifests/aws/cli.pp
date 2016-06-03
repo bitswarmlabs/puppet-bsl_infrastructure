@@ -1,11 +1,12 @@
 class bsl_infrastructure::aws::cli(
-  $version = 'latest',
+  $version = '1.10.35',
 ) {
   include '::python'
 
   package { 'awscli':
     ensure   => $version,
     provider => 'pip',
+    install_options => '--upgrade',
   }
 
   # awscli::profile { 'default':
