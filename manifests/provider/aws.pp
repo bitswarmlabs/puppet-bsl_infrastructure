@@ -7,6 +7,8 @@ define bsl_infrastructure::provider::aws(
   $images = [],
   $regions = [],
   $vpcs = [],
+  $security_groups = [],
+  $instances = [],
   $default = 'false',
 ) {
   notify { '#### hello from bsl_infrastructure::provider::aws': }
