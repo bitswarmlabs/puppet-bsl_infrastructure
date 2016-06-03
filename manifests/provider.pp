@@ -9,7 +9,7 @@ define bsl_infrastructure::provider(
   $config = [],
 ) {
   notify { "## hello from bsl_infrastructure::provider for account=$account_id tenant=$tenant_id": }
-  
+
   if str2bool($purge) {
     $_ensure = 'absent'
   }
@@ -20,7 +20,9 @@ define bsl_infrastructure::provider(
   validate_string($account_id)
 
   if ! defined(Bsl_account::Verify[$account_id]) {
-    bsl_account::verify { $account_id: }
+    bsl_account::verify { $tenant_id:
+      account_id => $account_id,
+    }
   }
 
   $defaults = {
