@@ -43,7 +43,7 @@ define bsl_infrastructure::provider(
   }
 
   if defined("bsl_infrastructure::provider::$name") {
-    create_resources("bsl_infrastructure::provider::$name", $config, $defaults)
+    # create_resources("bsl_infrastructure::provider::$name", $config, $defaults)
   }
   else {
     fail("unknown provider: $name")
