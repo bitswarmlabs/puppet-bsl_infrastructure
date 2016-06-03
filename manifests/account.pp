@@ -12,5 +12,6 @@ define bsl_infrastructure::account(
     puppetmaster => $puppetmaster,
   }
 
+  validate_hash($providers)
   create_resources('bsl_infrastructure::provider', $providers, $defaults)
 }
