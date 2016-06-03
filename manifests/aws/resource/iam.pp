@@ -1,4 +1,4 @@
-class bsl_infrastructure::aws::iam(
+class bsl_infrastructure::aws::resource::iam(
   $policy = '
 {
    "Version": "2012-10-17",

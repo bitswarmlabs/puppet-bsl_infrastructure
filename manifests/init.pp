@@ -42,6 +42,10 @@
 #
 # Copyright 2016 Your name here, unless otherwise noted.
 #
-class bsl_infrastructure {
-
+class bsl_infrastructure(
+  $accounts = [],
+) {
+  if !empty($accounts) {
+    create_resources('bsl_infrastructure::account', $accounts)
+  }
 }
