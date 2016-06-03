@@ -4,9 +4,9 @@ define bsl_infrastructure::account(
   $providers = [],
 ) {
   $defaults = {
-    account_id => $account_id,
+    tenant_id => $account_id,
     internal_domain => $internal_domain,
   }
 
-  create_resources('bsl_infrastructure::provider', $providers, $defaults)
+  create_resources('bsl_infrastructure::tenant', $providers, $defaults)
 }
