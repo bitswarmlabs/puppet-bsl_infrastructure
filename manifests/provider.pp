@@ -32,18 +32,16 @@ define bsl_infrastructure::provider(
     }
   }
 
-  $defaults = {
-    'default'         => 'false',
-    'account_id'      => $account_id,
-    'tenant_id'       => $tenant_id,
-    'internal_domain' => $internal_domain,
-    'puppetmaster'    => $puppetmaster,
-    'ensure'          => $_ensure,
-    'require'         => Bsl_account::Verify[$account_id],
-  }
-
   if defined("bsl_infrastructure::provider::$name") {
-    create_resources("bsl_infrastructure::provider::$name", $config, $defaults)
+    class { "bsl_infrastructure::provider::$name":
+      config          => $config,
+      account_id      => $account_id,
+      tenant_id       => $tenant_id,
+      internal_domain => $internal_domain,
+      puppetmaster    => $puppetmaster,
+      ensure          => $_ensure,
+      require         => Bsl_account::Verify[$account_id],
+    }
   }
   else {
     fail("unknown provider: $name")
