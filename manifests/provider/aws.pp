@@ -1,4 +1,4 @@
-define bsl_infrastructure::provider::aws(
+class bsl_infrastructure::provider::aws(
   $ensure = 'present',
   $account_id = hiera('bsl_account_id', $::bsl_account_id),
   $tenant_id = hiera('bsl_tenant_id', $::bsl_tenant_id),
