@@ -11,7 +11,7 @@ define bsl_infrastructure::aws::resource::vpc(
   $dhcp_options_name = $name,
   $internal_domain = hiera('domain', $::domain),
   $domain_name_servers = ['AmazonProvidedDNS'],
-  $ntp_servers = ['ntp.bitswarm.internal'],
+  $ntp_servers = undef,
 
   $manage_subnets = 'true',
   $subnets = [],
