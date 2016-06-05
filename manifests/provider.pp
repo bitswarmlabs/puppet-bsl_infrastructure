@@ -33,6 +33,12 @@ define bsl_infrastructure::provider(
   }
 
   if defined("bsl_infrastructure::provider::${name}") {
+    validate_hash($config['images'])
+    validate_hash($config['regions'])
+    validate_hash($config['vpcs'])
+    validate_hash($config['security_groups'])
+    validate_hash($config['instances'])
+
     class { "bsl_infrastructure::provider::${name}":
       ensure          => $_ensure,
       default         => $default,
@@ -40,7 +46,11 @@ define bsl_infrastructure::provider(
       tenant_id       => $tenant_id,
       internal_domain => $internal_domain,
       puppetmaster    => $puppetmaster,
-      config          => $config,
+      images          => $config['images'],
+      regions         => $config['regions'],
+      vpcs            => $config['vpcs'],
+      security_groups => $config['security_groups'],
+      instances       => $config['instances'],
       require         => Bsl_account::Verify[$account_id],
     }
     contain("bsl_infrastructure::provider::${name}")
