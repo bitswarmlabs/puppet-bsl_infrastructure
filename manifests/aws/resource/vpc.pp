@@ -32,6 +32,7 @@ define bsl_infrastructure::aws::resource::vpc(
 
   if str2bool($manage_dhcp_options) {
     ec2_vpc_dhcp_options { $dhcp_options_name:
+      ensure              => $ensure,
       tags                => $tags,
       region              => $region,
       domain_name         => $internal_domain,
