@@ -11,7 +11,7 @@ class bsl_infrastructure::provider::aws(
   $instances = [],
   $default = 'false',
 ) {
-  notify { '#### hello from bsl_infrastructure::provider::aws': }
+  # notify { '#### hello from bsl_infrastructure::provider::aws': }
 
   $defaults = {
     ensure          => $ensure,
