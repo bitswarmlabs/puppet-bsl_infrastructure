@@ -38,6 +38,7 @@ define bsl_infrastructure::aws::resource::vpc(
       domain_name         => $internal_domain,
       domain_name_servers => $domain_name_servers,
       ntp_servers         => $ntp_servers,
+      subscribe           => Ec2_vpc[$name],
     }
   }
 
