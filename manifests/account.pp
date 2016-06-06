@@ -10,12 +10,11 @@ define bsl_infrastructure::account(
   validate_hash($providers)
   validate_re($type, [ '^standard', '^tenant'])
 
-  if ! defined(Bsl_account::Verify[$account_id]) {
-    bsl_account::verify { $account_id:
-      account_id => $account_id,
-      tenant_id => $tenant_id,
-    }
+  bsl_account::verify { $account_id:
+    account_id => $account_id,
+    tenant_id => $tenant_id,
   }
+
   $defaults = {
     account_id => $account_id,
     tenant_id => $tenant_id,
