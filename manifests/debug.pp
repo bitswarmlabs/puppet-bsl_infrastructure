@@ -41,8 +41,8 @@ class bsl_infrastructure::debug(
   }
 
   if $ensure == absent {
-    Ec2_vpc_internet_gateway['sample-igw']~>
     Ec2_vpc_subnet['sample-subnet']~>
+    Ec2_vpc_internet_gateway['sample-igw']~>
     Ec2_vpc_routetable['sample-routes']~>
     Ec2_vpc['sample-vpc']
     # ~>
