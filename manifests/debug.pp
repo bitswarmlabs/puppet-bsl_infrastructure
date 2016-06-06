@@ -1,7 +1,7 @@
 class bsl_infrastructure::debug(
   $ensure = 'present',
 ) {
-  notify { "## hello from bsl_infrastructure.debug": }
+  notify { "## hello from bsl_infrastructure.debug vINFINITY": }
 
   ec2_vpc { 'sample-vpc':
     ensure       => $ensure,
