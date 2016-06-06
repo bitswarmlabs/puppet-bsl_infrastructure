@@ -60,7 +60,7 @@ class bsl_infrastructure::debug(
 
     ec2_vpc_routetable { 'sample-routes':
       ensure => $ensure,
-      # region => 'us-east-1',
+      region => 'us-east-1',
       vpc    => 'sample-vpc',
       routes => [
         {
