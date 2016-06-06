@@ -12,11 +12,15 @@ class bsl_infrastructure::aws::sdk {
 
   }
   else {
-    include '::ruby'
+    class { '::ruby':
+      ruby_package     => 'ruby1.9.1-full',
+      rubygems_package => 'rubygems1.9.1',
+      gems_version     => 'latest',
+    }
 
-    package { ['aws-sdk-core', 'retries']:
+    package { ['aws-sdk', 'retries']:
       ensure   => present,
-      provider => 'puppet_gem',
+      provider => 'gem',
       notify   => Service['puppetserver'],
     }
 
