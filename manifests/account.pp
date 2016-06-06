@@ -12,14 +12,15 @@ define bsl_infrastructure::account(
 
   bsl_account::verify { $account_id:
     account_id => $account_id,
-    tenant_id => $tenant_id,
+    tenant_id  => $tenant_id,
   }
 
   $defaults = {
-    account_id => $account_id,
-    tenant_id => $tenant_id,
+    account_id      => $account_id,
+    tenant_id       => $tenant_id,
     internal_domain => $internal_domain,
-    puppetmaster => $puppetmaster,
+    puppetmaster    => $puppetmaster,
+    require         => Bsl_account::Verify[$account_id],
   }
 
   create_resources('bsl_infrastructure::provider', $providers, $defaults)
