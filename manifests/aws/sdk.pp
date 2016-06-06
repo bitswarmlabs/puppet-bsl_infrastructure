@@ -15,19 +15,17 @@ class bsl_infrastructure::aws::sdk(
 
   }
   else {
-    class { '::ruby':
-      gems_version     => 'latest',
-    }
+    include '::ruby'
 
     package { 'aws-sdk':
       ensure   => $aws_sdk_gem_version,
-      provider => 'puppet_gem',
+      provider => 'gem',
       notify   => Service['puppetserver'],
     }
 
     package { 'retries':
       ensure   => $retries_gem_version,
-      provider => 'puppet_gem',
+      provider => 'gem',
     }
 
     # package { 'nokogiri':
