@@ -4,10 +4,10 @@ class bsl_infrastructure::debug(
   notify { "## hello from bsl_infrastructure.debug vINFINITY2": }
 
   if $ensure == absent {
-    ec2_securitygroup { 'sample-sg':
-      ensure   => absent,
-      region => 'sa-east-1',
-    } ~>
+    # ec2_securitygroup { 'sample-sg':
+    #   ensure   => absent,
+    #   region => 'sa-east-1',
+    # } ~>
 
     ec2_vpc_internet_gateway { 'sample-igw':
       ensure => absent,
