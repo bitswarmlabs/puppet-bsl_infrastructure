@@ -4,7 +4,7 @@ class bsl_infrastructure::debug {
   ec2_vpc { 'sample-vpc':
     ensure       => present,
     region       => 'sa-east-1',
-    cidr_block   => '10.0.0.0/16',
+    cidr_block   => '172.30.0.0/16',
   }
 
   # ec2_securitygroup { 'sample-sg':
@@ -25,7 +25,7 @@ class bsl_infrastructure::debug {
     ensure            => present,
     region            => 'sa-east-1',
     vpc               => 'sample-vpc',
-    cidr_block        => '10.0.0.0/24',
+    cidr_block        => '172.30.0.0/24',
     availability_zone => 'sa-east-1a',
     route_table       => 'sample-routes',
   }
@@ -42,7 +42,7 @@ class bsl_infrastructure::debug {
     vpc    => 'sample-vpc',
     routes => [
       {
-        destination_cidr_block => '10.0.0.0/16',
+        destination_cidr_block => '172.30.0.0/16',
         gateway                => 'local'
       },{
         destination_cidr_block => '0.0.0.0/0',
