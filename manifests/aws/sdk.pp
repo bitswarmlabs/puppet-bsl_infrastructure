@@ -1,4 +1,7 @@
-class bsl_infrastructure::aws::sdk {
+class bsl_infrastructure::aws::sdk(
+  $aws_sdk_gem_version = 'v2.3.11',
+  $retries_gem_version = present,
+) {
   # notify { '#### here we are in bsl_infrastructure::aws::sdk': }
 
   # If we're on Amazon we've got the ruby sdk in an rpm. Otherwise we'll get
@@ -13,15 +16,18 @@ class bsl_infrastructure::aws::sdk {
   }
   else {
     class { '::ruby':
-      ruby_package     => 'ruby1.9.1-full',
-      rubygems_package => 'rubygems1.9.1',
       gems_version     => 'latest',
     }
 
-    package { ['aws-sdk', 'retries']:
-      ensure   => present,
-      provider => 'gem',
+    package { 'aws-sdk':
+      ensure   => $aws_sdk_gem_version,
+      provider => 'puppet_gem',
       notify   => Service['puppetserver'],
+    }
+
+    package { 'retries':
+      ensure   => $retries_gem_version,
+      provider => 'puppet_gem',
     }
 
     # package { 'nokogiri':
