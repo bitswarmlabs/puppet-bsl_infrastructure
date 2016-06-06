@@ -7,19 +7,19 @@ class bsl_infrastructure::debug {
     cidr_block   => '10.0.0.0/16',
   }
 
-  ec2_securitygroup { 'sample-sg':
-    ensure      => present,
-    region      => 'sa-east-1',
-    vpc         => 'sample-vpc',
-    description => 'Security group for VPC',
-    ingress     => [{
-      security_group => 'sample-sg',
-    },{
-      protocol => 'tcp',
-      port     => 22,
-      cidr     => '0.0.0.0/0'
-    }]
-  }
+  # ec2_securitygroup { 'sample-sg':
+  #   ensure      => present,
+  #   region      => 'sa-east-1',
+  #   vpc         => 'sample-vpc',
+  #   description => 'Security group for VPC',
+  #   ingress     => [{
+  #     security_group => 'sample-sg',
+  #   },{
+  #     protocol => 'tcp',
+  #     port     => 22,
+  #     cidr     => '0.0.0.0/0'
+  #   }]
+  # }
 
   ec2_vpc_subnet { 'sample-subnet':
     ensure            => present,
