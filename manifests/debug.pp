@@ -6,7 +6,7 @@ class bsl_infrastructure::debug {
     region       => 'us-east-1',
     cidr_block   => '172.30.0.0/16',
   }
-  ~>
+  # ~>
 
   # ec2_securitygroup { 'sample-sg':
   #   ensure      => present,
