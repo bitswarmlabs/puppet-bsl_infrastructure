@@ -1,5 +1,5 @@
 class bsl_infrastructure::aws::sdk(
-  $aws_sdk_gem_version = latest, # '2.2.37', '2.3.11'
+  $aws_sdk_gem_version = latest,
   $retries_gem_version = present,
 ) {
   # notify { '#### here we are in bsl_infrastructure::aws::sdk': }
