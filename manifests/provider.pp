@@ -1,8 +1,8 @@
 define bsl_infrastructure::provider(
   $purge = 'false',
   $default = 'false',
-  $account_id = hiera('bsl_account_id', $::bsl_account_id),
-  $tenant_id = hiera('bsl_tenant_id', $::bsl_tenant_id),
+  $account_id,
+  $tenant_id = undef,
   $internal_domain = hiera('domain', $::domain),
   $puppetmaster = hiera('puppetmaster', 'puppet'),
   $config = [],
@@ -18,19 +18,6 @@ define bsl_infrastructure::provider(
 
   validate_string($account_id)
   validate_hash($config)
-
-  if empty($tenant_id) {
-    $_tenant_id = $account_id
-  }
-  else {
-    $_tenant_id = $tenant_id
-  }
-
-  if ! defined(Bsl_account::Verify[$account_id]) {
-    bsl_account::verify { $_tenant_id:
-      account_id => $account_id,
-    }
-  }
 
   if defined("bsl_infrastructure::provider::${name}") {
     validate_hash($config['images'])
