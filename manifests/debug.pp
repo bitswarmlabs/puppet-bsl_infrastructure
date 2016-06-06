@@ -44,7 +44,8 @@ class bsl_infrastructure::debug(
     Ec2_vpc_internet_gateway['sample-igw']~>
     Ec2_vpc_subnet['sample-subnet']~>
     Ec2_vpc_routetable['sample-routes']~>
-    Ec2_vpc['sample-vpc']~>
-    Ec2_vpc_dhcp_options['sample-options']
+    Ec2_vpc['sample-vpc']
+    # ~>
+    # Ec2_vpc_dhcp_options['sample-options']
   }
 }
