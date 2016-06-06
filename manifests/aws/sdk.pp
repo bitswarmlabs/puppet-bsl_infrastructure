@@ -19,13 +19,13 @@ class bsl_infrastructure::aws::sdk(
 
     package { 'aws-sdk':
       ensure   => $aws_sdk_gem_version,
-      provider => 'gem',
+      provider => 'puppet_gem',
       notify   => Service['puppetserver'],
     }
 
     package { 'retries':
       ensure   => $retries_gem_version,
-      provider => 'gem',
+      provider => 'puppet_gem',
     }
 
     # package { 'nokogiri':
