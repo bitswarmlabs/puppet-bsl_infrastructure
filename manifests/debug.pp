@@ -37,7 +37,6 @@ class bsl_infrastructure::debug(
 
   }
   else {
-
     ec2_vpc { 'sample-vpc':
       ensure       => $ensure,
       region       => 'us-east-1',
@@ -59,21 +58,21 @@ class bsl_infrastructure::debug(
       vpc    => 'sample-vpc',
     }
 
-    ec2_vpc_routetable { 'sample-routes':
-      ensure => $ensure,
-      region => 'us-east-1',
-      vpc    => 'sample-vpc',
-      routes => [
-        {
-          destination_cidr_block => '0.0.0.0/0',
-          gateway                => 'sample-igw'
-        },
-        # {
-        #   destination_cidr_block => '172.30.0.0/16',
-        #   gateway                => 'local'
-        # },
-      ],
-    }
+    # ec2_vpc_routetable { 'sample-routes':
+    #   ensure => $ensure,
+    #   region => 'us-east-1',
+    #   vpc    => 'sample-vpc',
+    #   routes => [
+    #     {
+    #       destination_cidr_block => '0.0.0.0/0',
+    #       gateway                => 'sample-igw'
+    #     },
+    #     # {
+    #     #   destination_cidr_block => '172.30.0.0/16',
+    #     #   gateway                => 'local'
+    #     # },
+    #   ],
+    # }
 
   }
 }
