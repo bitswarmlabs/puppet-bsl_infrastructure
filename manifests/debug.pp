@@ -32,14 +32,14 @@ class bsl_infrastructure::debug {
     ensure => present,
     region => 'us-east-1',
     vpc    => 'sample-vpc',
-    routes => [
-      {
-        destination_cidr_block => '172.30.0.0/16',
-        gateway                => 'local'
-      },{
+    routes => [{
         destination_cidr_block => '0.0.0.0/0',
         gateway                => 'sample-igw'
       },
+      # {
+      #   destination_cidr_block => '172.30.0.0/16',
+      #   gateway                => 'local'
+      # },
     ],
   }
   ~>
