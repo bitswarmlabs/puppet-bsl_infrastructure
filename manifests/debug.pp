@@ -1,7 +1,7 @@
 class bsl_infrastructure::debug(
   $ensure = 'present',
 ) {
-  notify { "## hello from bsl_infrastructure.debug vINFINITY2": }
+  notify { "## hello from bsl_infrastructure.debug": }
 
   if $ensure == absent {
     # ec2_securitygroup { 'sample-sg':
@@ -49,7 +49,7 @@ class bsl_infrastructure::debug(
       vpc               => 'sample-vpc',
       cidr_block        => '172.30.0.0/24',
       availability_zone => 'us-east-1b',
-      route_table       => 'sample-routes',
+      # route_table       => 'sample-routes',
     }
 
     ec2_vpc_internet_gateway { 'sample-igw':
