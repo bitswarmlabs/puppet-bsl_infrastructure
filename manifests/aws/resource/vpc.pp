@@ -18,6 +18,9 @@ define bsl_infrastructure::aws::resource::vpc(
 
   $manage_gateway = 'true',
   $gateway_name = $name,
+
+  $manage_route_table = 'true',
+  $route_table_name = $name,
 ) {
   include 'bsl_infrastructure::aws'
 
@@ -43,14 +46,14 @@ define bsl_infrastructure::aws::resource::vpc(
   }
 
   $defaults = {
-    ensure          => $ensure,
-    account_id      => $account_id,
-    vpc             => $name,
-    gateway         => $gateway_name,
-    region          => $region,
-    tags            => $tags,
-    internal_domain => $internal_domain,
-    vpc_cidr_block  => $cidr_block,
+    ensure           => $ensure,
+    account_id       => $account_id,
+    vpc              => $name,
+    region           => $region,
+    tags             => $tags,
+    route_table_name => $route_table_name,
+    internal_domain  => $internal_domain,
+    vpc_cidr_block   => $cidr_block,
   }
 
   if str2bool($manage_subnets) and !empty($subnets) {
@@ -58,11 +61,29 @@ define bsl_infrastructure::aws::resource::vpc(
   }
 
   if str2bool($manage_gateway) {
-    ec2_vpc_internet_gateway { $name:
+    ec2_vpc_internet_gateway { $gateway_name:
       ensure => $ensure,
       region => $region,
       vpc    => $name,
       tags   => $tags,
+    }
+  }
+
+  if str2bool($manage_route_table) {
+    ec2_vpc_routetable { $route_table_name:
+      ensure => $ensure,
+      region => $region,
+      vpc    => $name,
+      routes => [
+        {
+          destination_cidr_block => $cidr_block,
+          gateway                => 'local'
+        },
+        {
+          destination_cidr_block => '0.0.0.0/0',
+          gateway                => $gateway_name,
+        },
+      ],
     }
   }
 
