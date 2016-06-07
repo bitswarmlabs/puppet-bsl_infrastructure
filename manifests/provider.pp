@@ -20,12 +20,6 @@ define bsl_infrastructure::provider(
   validate_hash($config)
 
   if defined("bsl_infrastructure::provider::${name}") {
-    validate_hash($config['images'])
-    validate_hash($config['regions'])
-    validate_hash($config['vpcs'])
-    validate_hash($config['security_groups'])
-    validate_hash($config['instances'])
-
     class { "bsl_infrastructure::provider::${name}":
       ensure          => $_ensure,
       default         => $default,
