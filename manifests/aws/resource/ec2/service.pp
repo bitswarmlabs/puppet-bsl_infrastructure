@@ -87,7 +87,7 @@ define bsl_infrastructure::aws::resource::ec2::service(
     image_id                             => $ami,
     instance_type                        => $type,
     private_ip_address                   => $private_ip_address,
-    associate_public_ip_address          => str2bool($public_ip),
+    associate_public_ip_address          => $public_ip,
     ebs_optimized                        => str2bool($ebs_optimized),
     monitoring                           => str2bool($monitoring),
     instance_initiated_shutdown_behavior => $shutdown_behavior,
