@@ -32,7 +32,13 @@ class bsl_infrastructure::provider::aws(
     create_resources('bsl_infrastructure::aws::resource::route53::zone', $zones, $zone_defaults)
   }
 
+  $service_defaults = {
+    ensure          => $ensure,
+    account_id      => $account_id,
+    tenant_id       => $tenant_id,
+  }
+
   if !empty($services) {
-    create_resources('bsl_infrastructure::aws::resource::ec2::service', $zones, $zone_defaults)
+    create_resources('bsl_infrastructure::aws::resource::ec2::service', $zones, $service_defaults)
   }
 }
