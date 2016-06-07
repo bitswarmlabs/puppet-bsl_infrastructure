@@ -30,7 +30,7 @@ define bsl_infrastructure::aws::resource::vpc(
   }
 
   validate_hash($tags)
-  $all_tags = merge_hash($default_tags, $tags)
+  $all_tags = merge($default_tags, $tags)
 
   ec2_vpc { $name:
     ensure           => $ensure,
