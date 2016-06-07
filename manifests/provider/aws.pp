@@ -7,6 +7,7 @@ class bsl_infrastructure::provider::aws(
   $zones = {},
   $vpcs = {},
   $default = 'false',
+  $puppetmaster = hiera('puppetmaster', 'puppet'),
 ) {
   # notify { '#### hello from bsl_infrastructure::provider::aws': }
 
