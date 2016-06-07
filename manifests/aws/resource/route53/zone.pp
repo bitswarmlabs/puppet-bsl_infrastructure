@@ -8,9 +8,9 @@ define bsl_infrastructure::aws::resource::route53::zone(
 ) {
   include 'bsl_infrastructure::aws::resource::route53'
 
-  $name_normalized = regsubst($name, '(([\w]+\.)*[\w]+)', '$&.')
+  $name_normalized = regsubst($name, '(([\w]+\.)*[\w]+)', '\0.')
   validate_re($name_normalized, '^((([\w]+\.)*[\w]+)\.)$')
-  
+
   # TODO : the below only creates a public zone currently, also cannot associate with VPC, as $name is the only
   # implemented parameter.
   #
