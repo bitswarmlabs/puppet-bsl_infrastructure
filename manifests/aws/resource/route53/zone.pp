@@ -6,6 +6,13 @@ define bsl_infrastructure::aws::resource::route53::zone(
   $type = 'private',
   $vpcs = {},
 ) {
+  notify { "bsl_infrastructure::aws::resource::route53::zone[$title]":
+    message => "
+      ## WARNING: bsl_infrastructure::aws::resource::route53::zone[$title] not fully implemented,
+      please see TODOs in code
+    ",
+  }
+
   include 'bsl_infrastructure::aws::resource::route53'
 
   $name_normalized = regsubst($name, '(([\w]+\.)*[\w]+)', '\0.')
