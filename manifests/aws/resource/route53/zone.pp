@@ -6,10 +6,13 @@ define bsl_infrastructure::aws::resource::route53::zone(
   $type = 'private',
   $vpcs = {},
 ) {
+  $debug_msg = "bsl_infrastructure::aws::resource::route53::zone[$title] not fully implemented, please see TODOs in \
+    code"
+
   notify { "bsl_infrastructure::aws::resource::route53::zone[$title]":
-    message => "## WARNING: bsl_infrastructure::aws::resource::route53::zone[$title] not fully implemented, \
-      please see TODOs in code",
+    message => "## WARNING: ${$debug_msg}",
   }
+  warn($debug_msg)
 
   include 'bsl_infrastructure::aws::resource::route53'
 

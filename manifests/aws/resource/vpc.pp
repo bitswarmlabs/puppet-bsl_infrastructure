@@ -27,11 +27,12 @@ define bsl_infrastructure::aws::resource::vpc(
 ) {
   include 'bsl_infrastructure::aws'
 
+  $debug_msg = "bsl_infrastructure::aws::resource::vpc[$title] not fully implemented, please see TODOs in code"
   notify { "bsl_infrastructure::aws::resource::vpc[$title]":
-    message => "## WARNING: bsl_infrastructure::aws::resource::vpc[$title] not fully implemented, \
-      please see TODOs in code",
+    message => "## WARNING: ${debug_msg}",
   }
-
+  warn($debug_msg)
+  
   $default_tags = {
     'bsl_account_id' => $account_id,
     'vpc_tenant_id'  => $tenant_id,
