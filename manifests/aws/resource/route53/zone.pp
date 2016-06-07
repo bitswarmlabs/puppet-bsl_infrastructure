@@ -12,7 +12,7 @@ define bsl_infrastructure::aws::resource::route53::zone(
   notify { "bsl_infrastructure::aws::resource::route53::zone[$title]":
     message => "## WARNING: ${$debug_msg}",
   }
-  warn($debug_msg)
+  warning($debug_msg)
 
   include 'bsl_infrastructure::aws::resource::route53'
 
