@@ -48,7 +48,7 @@ define bsl_infrastructure::aws::resource::ec2::service(
   }
   else {
     $_region = $region
-    $_availability_zone = undef,
+    $_availability_zone = undef
   }
 
   if !empty($private_ip) and $private_ip != 'default' {
