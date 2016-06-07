@@ -32,7 +32,7 @@ define bsl_infrastructure::aws::resource::vpc(
     message => "## WARNING: ${debug_msg}",
   }
   warn($debug_msg)
-  
+
   $default_tags = {
     'bsl_account_id' => $account_id,
     'vpc_tenant_id'  => $tenant_id,
