@@ -4,7 +4,6 @@ define bsl_infrastructure::provider(
   $account_id,
   $tenant_id = undef,
   $internal_domain = hiera('domain', $::domain),
-  $puppetmaster = hiera('puppetmaster', 'puppet'),
   $config = [],
 ) {
   # notify { "## hello from bsl_infrastructure::provider for account=$account_id tenant=$tenant_id provider=${name}": }
@@ -26,7 +25,6 @@ define bsl_infrastructure::provider(
       account_id        => $account_id,
       tenant_id         => $tenant_id,
       internal_domain   => $internal_domain,
-      puppetmaster      => $puppetmaster,
       services          => $config['services'],
       zones             => $config['zones'],
       vpcs              => $config['vpcs'],
