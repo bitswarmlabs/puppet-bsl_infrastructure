@@ -1,0 +1,3 @@
+mkdir -p /etc/facter/facts.d
+echo 'bsl_account_id: <%= @account_id %>' > /etc/facter/facts.d/bsl_account.yaml
+echo 'vpc_tenant_id: <%= @atenant_id %>' > /etc/facter/facts.d/vpc_tenant_id.yaml
