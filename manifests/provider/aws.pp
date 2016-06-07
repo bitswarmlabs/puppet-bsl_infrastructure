@@ -31,4 +31,8 @@ class bsl_infrastructure::provider::aws(
   if !empty($zones) {
     create_resources('bsl_infrastructure::aws::resource::route53::zone', $zones, $zone_defaults)
   }
+
+  if !empty($services) {
+    create_resources('bsl_infrastructure::aws::resource::ec2::service', $zones, $zone_defaults)
+  }
 }

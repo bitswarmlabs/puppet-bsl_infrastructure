@@ -24,6 +24,8 @@ define bsl_infrastructure::aws::resource::vpc(
 
   $services = {},
   $zones = {},
+
+  $security_groups = {},
 ) {
   include 'bsl_infrastructure::aws'
 
@@ -61,20 +63,20 @@ define bsl_infrastructure::aws::resource::vpc(
     }
   }
 
-  $defaults = {
-    ensure           => $ensure,
-    account_id       => $account_id,
-    tenant_id        => $tenant_id,
-    vpc              => $name,
-    region           => $region,
-    tags             => $all_tags,
-    route_table_name => $route_table_name,
-    internal_domain  => $internal_domain,
-    vpc_cidr_block   => $cidr_block,
-  }
-
   if str2bool($manage_subnets) and !empty($subnets) {
-    create_resources('bsl_infrastructure::aws::resource::vpc::subnet', $subnets, $defaults)
+    $subnet_defaults = {
+      ensure           => $ensure,
+      account_id       => $account_id,
+      tenant_id        => $tenant_id,
+      vpc              => $name,
+      region           => $region,
+      tags             => $all_tags,
+      route_table_name => $route_table_name,
+      internal_domain  => $internal_domain,
+      vpc_cidr_block   => $cidr_block,
+    }
+
+    create_resources('bsl_infrastructure::aws::resource::vpc::subnet', $subnets, $subnet_defaults)
   }
 
   if str2bool($manage_gateway) {
@@ -103,6 +105,19 @@ define bsl_infrastructure::aws::resource::vpc(
       #   },
       # ],
     }
+  }
+
+  if !empty($security_groups) {
+    $sg_defaults = {
+      ensure           => $ensure,
+      account_id       => $account_id,
+      tenant_id        => $tenant_id,
+      vpc              => $name,
+      region           => $region,
+      vpc_cidr_block   => $cidr_block,
+    }
+
+    create_resources('bsl_infrastructure::aws::resource::vpc::security_group', $security_groups, $sg_defaults)
   }
 
   if $ensure == absent {
