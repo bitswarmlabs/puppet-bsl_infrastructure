@@ -7,8 +7,8 @@ define bsl_infrastructure::aws::resource::route53::zone(
   $vpcs = {},
 ) {
   notify { "bsl_infrastructure::aws::resource::route53::zone[$title]":
-    message => "## WARNING: bsl_infrastructure::aws::resource::route53::zone[$title] not fully implemented," +
-      "please see TODOs in code",
+    message => "## WARNING: bsl_infrastructure::aws::resource::route53::zone[$title] not fully implemented, \
+      please see TODOs in code",
   }
 
   include 'bsl_infrastructure::aws::resource::route53'
