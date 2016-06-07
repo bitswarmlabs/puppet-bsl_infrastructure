@@ -5,7 +5,7 @@ define bsl_infrastructure::aws::resource::vpc(
   $region = 'us-east-1',
   $cidr_block = '10.0.0.0/16',
   $instance_tenancy = undef,
-  $tags = undef,
+  $tags = {},
 
   $manage_dhcp_options = 'true',
   $dhcp_options_name = $name,
@@ -24,19 +24,27 @@ define bsl_infrastructure::aws::resource::vpc(
 ) {
   include 'bsl_infrastructure::aws'
 
+  $default_tags = {
+    'bsl_account_id' => $account_id,
+    'vpc_tenant_id'  => $tenant_id,
+  }
+
+  validate_hash($tags)
+  $all_tags = merge_hash($default_tags, $tags)
+
   ec2_vpc { $name:
     ensure           => $ensure,
     region           => $region,
     cidr_block       => $cidr_block,
     dhcp_options     => $dhcp_options_name,
     instance_tenancy => $instance_tenancy,
-    tags             => $tags,
+    tags             => $all_tags,
   }
 
   if str2bool($manage_dhcp_options) {
     ec2_vpc_dhcp_options { $dhcp_options_name:
       ensure              => $ensure,
-      tags                => $tags,
+      tags                => $all_tags,
       region              => $region,
       domain_name         => $internal_domain,
       domain_name_servers => $domain_name_servers,
@@ -50,7 +58,7 @@ define bsl_infrastructure::aws::resource::vpc(
     account_id       => $account_id,
     vpc              => $name,
     region           => $region,
-    tags             => $tags,
+    tags             => $all_tags,
     route_table_name => $route_table_name,
     internal_domain  => $internal_domain,
     vpc_cidr_block   => $cidr_block,
@@ -65,7 +73,7 @@ define bsl_infrastructure::aws::resource::vpc(
       ensure => $ensure,
       region => $region,
       vpc    => $name,
-      tags   => $tags,
+      tags   => $all_tags,
     }
   }
 
