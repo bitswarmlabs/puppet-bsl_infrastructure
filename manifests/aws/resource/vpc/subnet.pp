@@ -1,12 +1,13 @@
 define bsl_infrastructure::aws::resource::vpc::subnet(
   $ensure = 'present',
-  $account_id = $::bsl_account_id,
-  $vpc = undef,
+  $account_id,
+  $tenant_id,
+  $vpc,
   $region = 'us-east-1',
   $availability_zone = 'us-east-1a',
   $cidr_block = '10.0.0.0/16',
   $vpc_cidr_block = '10.0.0.0/16',
-  $tags = undef,
+  $tags = {},
   $route_table_name = undef,
   $internal_domain = 'bitswarm.internal',
 ) {

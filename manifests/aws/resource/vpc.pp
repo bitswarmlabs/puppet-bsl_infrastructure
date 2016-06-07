@@ -21,6 +21,9 @@ define bsl_infrastructure::aws::resource::vpc(
 
   $manage_route_table = 'true',
   $route_table_name = $name,
+
+  $services = {},
+  $zones = {},
 ) {
   include 'bsl_infrastructure::aws'
 
@@ -49,13 +52,13 @@ define bsl_infrastructure::aws::resource::vpc(
       domain_name         => $internal_domain,
       domain_name_servers => $domain_name_servers,
       ntp_servers         => $ntp_servers,
-      # subscribe           => Ec2_vpc[$name],
     }
   }
 
   $defaults = {
     ensure           => $ensure,
     account_id       => $account_id,
+    tenant_id        => $tenant_id,
     vpc              => $name,
     region           => $region,
     tags             => $all_tags,
@@ -82,24 +85,25 @@ define bsl_infrastructure::aws::resource::vpc(
       ensure => $ensure,
       region => $region,
       vpc    => $name,
-      routes => [
-        {
-          destination_cidr_block => $cidr_block,
-          gateway                => 'local'
-        },
-        {
-          destination_cidr_block => '0.0.0.0/0',
-          gateway                => $gateway_name,
-        },
-      ],
+      tags   => $all_tags,
+      # routes => [
+      #   {
+      #     destination_cidr_block => $cidr_block,
+      #     gateway                => 'local'
+      #   },
+      #   {
+      #     destination_cidr_block => '0.0.0.0/0',
+      #     gateway                => $gateway_name,
+      #   },
+      # ],
     }
   }
 
-  # if $ensure == absent {
-  #   Ec2_vpc_internet_gateway[$name]
-  #   ~> Ec2_vpc_subnet<| |>
-  #   ~> Ec2_vpc_routetable<| |>
-  #   ~> Ec2_vpc[$name]
-  #   ~> Ec2_vpc_dhcp_options[$name]
-  # }
+  if $ensure == absent {
+    Ec2_vpc_internet_gateway[$gateway_name]
+    ~> Ec2_vpc_subnet<| vpc == $name |>
+    ~> Ec2_vpc_routetable<| vpc == $name |>
+    ~> Ec2_vpc[$name]
+    ~> Ec2_vpc_dhcp_options[$dhcp_options_name]
+  }
 }
