@@ -39,6 +39,6 @@ class bsl_infrastructure::provider::aws(
   }
 
   if !empty($services) {
-    create_resources('bsl_infrastructure::aws::resource::ec2::service', $zones, $service_defaults)
+    create_resources('bsl_infrastructure::aws::resource::ec2::service', $services, $service_defaults)
   }
 }
