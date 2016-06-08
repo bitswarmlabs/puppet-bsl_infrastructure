@@ -100,17 +100,17 @@ define bsl_infrastructure::aws::resource::ec2::service(
     tags                                 => $all_tags,
   }
 
-  $readonly_vars = [
-    instance_id,
-    hypervisor,
-    virtualization_type,
-    public_ip_address,
-    private_dns_name,
-    public_dns_name,
-    kernel_id,
-  ]
-
-  if !empty($security_groups) {
-    # bsl_infrastructure::aws::resource::ec2::security_group { $security_groups: }
-  }
+  # $readonly_vars = [
+  #   instance_id,
+  #   hypervisor,
+  #   virtualization_type,
+  #   public_ip_address,
+  #   private_dns_name,
+  #   public_dns_name,
+  #   kernel_id,
+  # ]
+  #
+  # if !empty($security_groups) {
+  #   bsl_infrastructure::aws::resource::ec2::security_group { $security_groups: }
+  # }
 }
