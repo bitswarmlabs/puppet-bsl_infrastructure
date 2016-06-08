@@ -13,8 +13,8 @@ define bsl_infrastructure::aws::resource::ec2::service(
   $comment = undef,
   $tags = { },
 
-  $private_ip = 'default',
-  $public_ip = 'default',
+  $private_ip = undef,
+  $public_ip = 'false',
   $elastic_ip = undef,
   $vpc = 'default',
   $region = 'us-east-1',
