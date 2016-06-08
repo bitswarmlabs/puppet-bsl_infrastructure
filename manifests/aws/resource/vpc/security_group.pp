@@ -18,6 +18,9 @@ define bsl_infrastructure::aws::resource::vpc::security_group(
   # warning($debug_msg)
 
 
+  notify { "## vpc::security_group title=${title} name=${name} vpc=${vpc}"}
+
+
   $default_tags = {
     'bsl_account_id' => $account_id,
     'vpc_tenant_id'  => $tenant_id,
