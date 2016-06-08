@@ -111,6 +111,6 @@ define bsl_infrastructure::aws::resource::ec2::service(
   ]
 
   if !empty($security_groups) {
-    create_resources('bsl_infrastructure::aws::resource::ec2::security_group', $security_groups)
+    bsl_infrastructure::aws::resource::ec2::security_group { $security_groups: )
   }
 }
