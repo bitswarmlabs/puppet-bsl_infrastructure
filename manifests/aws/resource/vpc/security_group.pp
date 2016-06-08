@@ -26,12 +26,13 @@ define bsl_infrastructure::aws::resource::vpc::security_group(
   validate_hash($tags)
   $all_tags = merge($default_tags, $tags)
 
-  # ec2_securitygroup { $name:
-  #   ensure      => $ensure,
-  #   region      => $region,
-  #   description => $description,
-  #   ingress     => $ingress,
-  #   vpc         => $vpc,
-  #   tags        => $all_tags,
-  # }
+  ec2_securitygroup { $title:
+    ensure      => $ensure,
+    name        => $name,
+    region      => $region,
+    description => $description,
+    ingress     => $ingress,
+    vpc         => $vpc,
+    tags        => $all_tags,
+  }
 }
