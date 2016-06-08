@@ -18,7 +18,7 @@ define bsl_infrastructure::aws::resource::vpc::security_group(
   # warning($debug_msg)
 
 
-  notify { "## vpc::security_group title=${title} name=${name} vpc=${vpc}"}
+  notify { "## vpc::security_group title=${title} name=${name} vpc=${vpc}": }
 
 
   $default_tags = {
@@ -29,13 +29,13 @@ define bsl_infrastructure::aws::resource::vpc::security_group(
   validate_hash($tags)
   $all_tags = merge($default_tags, $tags)
 
-  ec2_securitygroup { $title:
-    ensure      => $ensure,
-    name        => $name,
-    region      => $region,
-    description => $description,
-    ingress     => $ingress,
-    vpc         => $vpc,
-    tags        => $all_tags,
-  }
+  # ec2_securitygroup { $title:
+  #   ensure      => $ensure,
+  #   name        => $name,
+  #   region      => $region,
+  #   description => $description,
+  #   ingress     => $ingress,
+  #   vpc         => $vpc,
+  #   tags        => $all_tags,
+  # }
 }
