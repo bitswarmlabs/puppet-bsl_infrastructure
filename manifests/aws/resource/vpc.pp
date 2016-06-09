@@ -131,8 +131,6 @@ define bsl_infrastructure::aws::resource::vpc(
     vpc         => $name,
     description => "Default security group for ${name}",
     ingress     => [{
-      security_group => $default_sg_name,
-    },{
       protocol  => 'tcp',
       port      => 80,
       cidr      => '0.0.0.0/0',
