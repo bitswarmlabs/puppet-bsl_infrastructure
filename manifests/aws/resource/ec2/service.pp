@@ -93,7 +93,7 @@ define bsl_infrastructure::aws::resource::ec2::service(
     instance_initiated_shutdown_behavior => $shutdown_behavior,
     block_devices                        => $block_devices,
     key_name                             => $key_pair_name,
-    # security_groups                      => $security_groups,
+    security_groups                      => $security_groups,
     iam_instance_profile_name            => $iam_profile_name,
     iam_instance_profile_arn             => $iam_profile_arn,
     user_data                            => template($user_data_template),
