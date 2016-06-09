@@ -5,7 +5,7 @@ define bsl_infrastructure::aws::resource::vpc(
   $region = 'us-east-1',
   $cidr_block = '10.0.0.0/16',
   $instance_tenancy = undef,
-  $tags = {},
+  $tags = { },
 
   $manage_dhcp_options = 'true',
   $dhcp_options_name = $name,
@@ -22,10 +22,10 @@ define bsl_infrastructure::aws::resource::vpc(
   $manage_route_table = 'true',
   $route_table_name = $name,
 
-  $services = {},
-  $zones = {},
+  $services = { },
+  $zones = { },
 
-  $security_groups = {},
+  $security_groups = { },
 ) {
   include 'bsl_infrastructure::aws'
 
@@ -107,17 +107,48 @@ define bsl_infrastructure::aws::resource::vpc(
     }
   }
 
-  if !empty($security_groups) {
-    $sg_defaults = {
-      ensure           => $ensure,
-      account_id       => $account_id,
-      tenant_id        => $tenant_id,
-      vpc              => $name,
-      region           => $region,
-      vpc_cidr_block   => $cidr_block,
-    }
+  # if !empty($security_groups) {
+  #   $sg_defaults = {
+  #     ensure           => $ensure,
+  #     account_id       => $account_id,
+  #     tenant_id        => $tenant_id,
+  #     vpc              => $name,
+  #     region           => $region,
+  #     vpc_cidr_block   => $cidr_block,
+  #   }
+  #
+  #   create_resources('bsl_infrastructure::aws::resource::vpc::security_group', $security_groups, $sg_defaults)
+  # }
 
-    create_resources('bsl_infrastructure::aws::resource::vpc::security_group', $security_groups, $sg_defaults)
+  $default_sg_name = $name ? {
+    'default' => 'default',
+    default   => "${name}_default",
+  }
+
+  ec2_securitygroup { $default_sg_name:
+    ensure      => $ensure,
+    region      => $region,
+    vpc         => $name,
+    description => "Default security group for ${name}",
+    ingress     => [{
+      security_group => $default_sg_name,
+    },{
+      protocol  => 'tcp',
+      port      => 80,
+      cidr      => '0.0.0.0/0',
+    },{
+      protocol  => 'tcp',
+      port      => 443,
+      cidr      => '0.0.0.0/0',
+    },{
+      protocol  => 'tcp',
+      port      => 22,
+      cidr      => '184.152.51.170/32',
+    }],
+    tags        => {
+      'bsl_account_id' => $account_id,
+      'vpc_tenant_id'  => $tenant_id,
+    },
   }
 
   if $ensure == absent {
