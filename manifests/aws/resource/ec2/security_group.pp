@@ -9,7 +9,7 @@ define bsl_infrastructure::aws::resource::ec2::security_group() {
 
   include 'bsl_infrastructure::aws::resource::ec2'
 
-  anchor { "bsl_infrastructure::aws::resource::ec2::security_group::${title}::begin": }
-
-  Bsl_infrastructure::Aws::Resource::Vpc::Security_group[$name]~>Anchor["bsl_infrastructure::aws::resource::ec2::security_group::${title}::begin"]
+  # anchor { "bsl_infrastructure::aws::resource::ec2::security_group::${title}::begin": }
+  #
+  # Bsl_infrastructure::Aws::Resource::Vpc::Security_group[$name]~>Anchor["bsl_infrastructure::aws::resource::ec2::security_group::${title}::begin"]
 }
