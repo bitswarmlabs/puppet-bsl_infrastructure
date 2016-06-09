@@ -57,7 +57,6 @@ define bsl_infrastructure::aws::resource::vpc(
       ensure              => $ensure,
       tags                => $all_tags,
       region              => $region,
-      netbios_node_type   => 2,
       # domain_name         => $internal_domain,
       domain_name_servers => $domain_name_servers,
       ntp_servers         => $ntp_servers,
