@@ -9,6 +9,8 @@ class bsl_infrastructure::provider::aws(
   $default = 'false',
   $puppetmaster = hiera('puppetmaster', 'puppet'),
 ) {
+  include 'bsl_infrastructure::aws'
+  
   # notify { '#### hello from bsl_infrastructure::provider::aws': }
 
   $defaults = {
