@@ -128,27 +128,27 @@ define bsl_infrastructure::aws::resource::vpc(
   ec2_securitygroup { $default_sg_name:
     ensure      => $ensure,
     region      => $region,
-    # vpc         => $name,
-    # description => "Default security group for ${name}",
-    # ingress     => [{
-    #   security_group => $default_sg_name,
-    # },{
-    #   protocol  => 'tcp',
-    #   port      => 80,
-    #   cidr      => '0.0.0.0/0',
-    # },{
-    #   protocol  => 'tcp',
-    #   port      => 443,
-    #   cidr      => '0.0.0.0/0',
-    # },{
-    #   protocol  => 'tcp',
-    #   port      => 22,
-    #   cidr      => '184.152.51.170/32',
-    # }],
-    # tags        => {
-    #   'bsl_account_id' => $account_id,
-    #   'vpc_tenant_id'  => $tenant_id,
-    # },
+    vpc         => $name,
+    description => "Default security group for ${name}",
+    ingress     => [{
+      security_group => $default_sg_name,
+    },{
+      protocol  => 'tcp',
+      port      => 80,
+      cidr      => '0.0.0.0/0',
+    },{
+      protocol  => 'tcp',
+      port      => 443,
+      cidr      => '0.0.0.0/0',
+    },{
+      protocol  => 'tcp',
+      port      => 22,
+      cidr      => '184.152.51.170/32',
+    }],
+    tags        => {
+      'bsl_account_id' => $account_id,
+      'vpc_tenant_id'  => $tenant_id,
+    },
   }
 
   if $ensure == absent {
