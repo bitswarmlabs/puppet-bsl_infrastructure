@@ -128,8 +128,8 @@ define bsl_infrastructure::aws::resource::vpc(
   ec2_securitygroup { $default_sg_name:
     ensure      => $ensure,
     region      => $region,
-    vpc         => $name,
-    description => "Default security group for ${name}",
+    # vpc         => $name,
+    # description => "Default security group for ${name}",
     # ingress     => [{
     #   security_group => $default_sg_name,
     # },{
