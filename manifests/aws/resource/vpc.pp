@@ -5,7 +5,7 @@ define bsl_infrastructure::aws::resource::vpc(
   $region = 'us-east-1',
   $cidr_block = '10.0.0.0/16',
   $instance_tenancy = undef,
-  $tags = {},
+  $tags = { },
 
   $manage_dhcp_options = 'true',
   $dhcp_options_name = $name,
@@ -22,10 +22,10 @@ define bsl_infrastructure::aws::resource::vpc(
   $manage_route_table = 'true',
   $route_table_name = $name,
 
-  $services = {},
-  $zones = {},
+  $services = { },
+  $zones = { },
 
-  $security_groups = {},
+  $security_groups = { },
 ) {
   include 'bsl_infrastructure::aws'
 
@@ -57,7 +57,8 @@ define bsl_infrastructure::aws::resource::vpc(
       ensure              => $ensure,
       tags                => $all_tags,
       region              => $region,
-      domain_name         => $internal_domain,
+      netbios_node_type   => 2,
+      # domain_name         => $internal_domain,
       domain_name_servers => $domain_name_servers,
       ntp_servers         => $ntp_servers,
     }
