@@ -29,9 +29,8 @@ define bsl_infrastructure::aws::resource::vpc::security_group(
   validate_hash($tags)
   $all_tags = merge($default_tags, $tags)
 
-  ec2_securitygroup { $title:
+  ec2_securitygroup { $name:
     ensure      => $ensure,
-    name        => $name,
     region      => $region,
     description => $description,
     ingress     => $ingress,
