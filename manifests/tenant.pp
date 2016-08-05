@@ -1,15 +1,28 @@
 define bsl_infrastructure::tenant(
-  $account_id = hiera('bsl_account_id', $::bsl_account_id),
-  $tenant_id = hiera('bsl_tenant_id', $::bsl_tenant_id),
+  $purge = 'false',
+  $bsl_account_id = $name,
+  $vpc_tenant_id = $name,
   $internal_domain = hiera('domain', $::domain),
   $puppetmaster = hiera('puppetmaster', 'puppet'),
-  $providers = [],
+  $providers = undef,
 ) {
-  $defaults = {
-    account_id => $account_id,
-    internal_domain => $internal_domain,
-    puppetmaster => $puppetmaster,
-  }
+  include 'bsl_infrastructure::auth'
 
-  create_resources('bsl_infrastructure::provider', $providers, $defaults)
+  # bsl_account::verify { $name:
+  #   account_id => $bsl_account_id,
+  #   tenant_id  => $vpc_tenant_id,
+  # }
+
+  if $providers {
+    validate_hash($providers)
+
+    $defaults = {
+      purge           => false,
+      bsl_account_id  => $bsl_account_id,
+      vpc_tenant_id   => $vpc_tenant_id,
+      internal_domain => $internal_domain,
+    }
+
+    create_resources('bsl_infrastructure::tenant::provider', $providers, $defaults)
+  }
 }

@@ -1,46 +1,42 @@
 class bsl_infrastructure::provider::aws(
-  $ensure = 'present',
-  $account_id = hiera('bsl_account_id', $::bsl_account_id),
-  $tenant_id = hiera('vpc_tenant_id', $::vpc_tenant_id),
-  $internal_domain = hiera('domain', $::domain),
-  $services = {},
-  $zones = {},
-  $vpcs = {},
-  $default = 'false',
-  $puppetmaster = hiera('puppetmaster', 'puppet'),
+  $vpcs = undef,
+  $security_groups = undef,
+  $iam_roles = undef,
+  $iam_policies = undef,
 ) {
-  include 'bsl_infrastructure::aws'
+  assert_private("bsl_infrastructure::provider::aws is private and cannot be invoked directly")
 
-  # notify { '#### hello from bsl_infrastructure::provider::aws': }
+  include 'bsl_infrastructure::provider::aws::sdk'
 
-  $defaults = {
-    ensure          => $ensure,
-    account_id      => $account_id,
-    tenant_id       => $tenant_id,
-    internal_domain => $internal_domain,
-    services        => $services,
-    zones           => $zones,
+  if $vpcs {
+    validate_hash($vpcs)
+
+    $vpc_defaults = {
+      require => Class['bsl_infrastructure::provider::aws::sdk'],
+    }
+
+    create_resources('bsl_infrastructure::provider::aws::vpc', $vpcs, $vpc_defaults)
   }
 
-  if !empty($vpcs) {
-    create_resources('bsl_infrastructure::aws::resource::vpc', $vpcs, $defaults)
+  if $security_groups {
+    validate_hash($security_groups)
+
+    $sg_defaults = {
+      require => Class['bsl_infrastructure::provider::aws::sdk'],
+    }
+
+    create_resources('bsl_infrastructure::provider::aws::security_group', $security_groups, $sg_defaults)
   }
 
-  $zone_defaults = {
-    ensure => 'present',
+  if $iam_roles {
+    validate_hash($iam_roles)
+
+    create_resources('bsl_infrastructure::provider::aws::iam_role', $iam_roles)
   }
 
-  if !empty($zones) {
-    create_resources('bsl_infrastructure::aws::resource::route53::zone', $zones, $zone_defaults)
-  }
+  if $iam_policies {
+    validate_hash($iam_policies)
 
-  $service_defaults = {
-    ensure          => $ensure,
-    account_id      => $account_id,
-    tenant_id       => $tenant_id,
-  }
-
-  if !empty($services) {
-    create_resources('bsl_infrastructure::aws::resource::ec2::service', $services, $service_defaults)
+    create_resources('bsl_infrastructure::provider::aws::iam_policy', $iam_policies)
   }
 }

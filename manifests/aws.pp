@@ -1,12 +1,7 @@
 class bsl_infrastructure::aws(
-  $manage_cli = 'true',
-  $manage_sdk = 'true',
+  $internal_domain = $::domain,
+  $puppetmaster = hiera('puppetmaster', "puppet.${::domain}"),
 ) {
-  if str2bool($manage_cli) {
-    include 'bsl_infrastructure::aws::cli'
-  }
-
-  if str2bool($manage_sdk) {
-    include 'bsl_infrastructure::aws::sdk'
-  }
+  assert_private("${module_name} is private and cannot be invoked directly")
+  require 'bsl_infrastructure::auth'
 }

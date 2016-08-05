@@ -43,9 +43,20 @@
 # Copyright 2016 Your name here, unless otherwise noted.
 #
 class bsl_infrastructure(
-  $accounts = [],
+  $providers = undef,
+  $tenants = undef,
+  $manage_providers = 'true',
+  $manage_tenants = 'true',
 ) {
-  if !empty($accounts) {
-    create_resources('bsl_infrastructure::account', $accounts)
+  include 'bsl_infrastructure::auth'
+
+  if $providers and str2bool($manage_providers) {
+    validate_hash($providers)
+    create_resources('bsl_infrastructure::provider', $providers)
+  }
+
+  if $tenants and str2bool($manage_tenants) {
+    validate_hash($tenants)
+    create_resources('bsl_infrastructure::tenant', $tenants)
   }
 }
